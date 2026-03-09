@@ -13,5 +13,6 @@
     - { role: users, tags: ["users"] }
     - { role: environment, tags: ["environment", "env"] }
     - { role: services, tags: ["services", "web"] }
+    - { role: ftp, tags: ["ftp"] }
     - { role: monitoring, tags: ["monitoring"] }
     - { role: backup, tags: ["backup"] }

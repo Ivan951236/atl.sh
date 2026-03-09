@@ -30,6 +30,10 @@ Gopher is a classic internet protocol from 1991. Edit `~/public_gopher/gophermap
 
 You can install software to `~/.local/` using language package managers (pip, npm, gem, cargo). System packages are managed by admins — suggest additions on IRC `#support`.
 
+## How do I upload files?
+
+You can use **SFTP** (over SSH) or **FTPS** (Explicit FTP over TLS). Your home directory is the root for both.
+
 ## What are the resource limits?
 
 - Disk: 5GB soft / 6GB hard (XFS/Ext4 Quotas)

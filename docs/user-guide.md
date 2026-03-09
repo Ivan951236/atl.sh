@@ -17,6 +17,11 @@ ssh your-username@atl.sh
 | `~/public_html/`   | Personal web page      | `https://atl.sh/~your-username`     |
 | `~/public_gemini/` | Gemini capsule         | `gemini://atl.sh/~your-username`    |
 | `~/public_gopher/` | Gopher hole            | `gopher://atl.sh/~your-username`    |
+| **FTP/S**         | **Home directory**     | `ftp://atl.sh` (Port 21, forced TLS) |
+
+### Connecting
+- **SSH**: `ssh your-username@atl.sh`
+- **FTP/S**: Use an FTP client (like FileZilla) with **Explicit FTP over TLS**.
 
 ### Available Tools
 
