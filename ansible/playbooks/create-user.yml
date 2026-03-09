@@ -1,0 +1,52 @@
+---
+# Portal-triggered: create a user account on the pubnix
+# Usage: ansible-playbook playbooks/create-user.yml \
+#   -e "username=johndoe" \
+#   -e "ssh_public_key='ssh-ed25519 AAAA...'"
+
+- name: Create pubnix user account
+  hosts: pubnix
+  become: true
+
+  tasks:
+    - name: Ensure pubnix group exists
+      ansible.builtin.group:
+        name: "{{ pubnix_group }}"
+        state: present
+
+    - name: Create user account
+      ansible.builtin.user:
+        name: "{{ username }}"
+        group: "{{ pubnix_group }}"
+        shell: "{{ default_shell }}"
+        create_home: true
+        skeleton: /etc/skel
+        state: present
+
+    - name: Deploy SSH authorized key
+      ansible.posix.authorized_key:
+        user: "{{ username }}"
+        key: "{{ ssh_public_key }}"
+        state: present
+        exclusive: false
+      no_log: true
+
+    - name: Set disk quota
+      community.general.filesystem:
+        fstype: ext4
+        dev: "{{ quota_device | default('/dev/sda1') }}"
+      when: false # Placeholder — enable when quotas are configured
+      tags: ["quota"]
+
+    - name: Verify home directory structure
+      ansible.builtin.stat:
+        path: "/home/{{ username }}/{{ item }}"
+      loop:
+        - "public_html/index.html"
+        - "public_gemini/index.gmi"
+        - "public_gopher/gophermap"
+      register: skel_check
+
+    - name: Report user creation
+      ansible.builtin.debug:
+        msg: "User {{ username }} created successfully. Home: /home/{{ username }}"

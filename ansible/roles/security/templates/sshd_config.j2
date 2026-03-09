@@ -1,0 +1,32 @@
+# {{ ansible_managed }}
+
+{% for port in ssh_ports %}
+Port {{ port }}
+{% endfor %}
+PermitRootLogin {{ ssh_permit_root_login }}
+PasswordAuthentication {{ ssh_password_authentication }}
+PubkeyAuthentication yes
+MaxAuthTries {{ ssh_max_auth_tries }}
+LoginGraceTime {{ ssh_login_grace_time }}
+ClientAliveInterval {{ ssh_client_alive_interval }}
+ClientAliveCountMax {{ ssh_client_alive_count_max }}
+
+# Restriction
+AllowGroups {{ ssh_allow_groups }}
+
+# Security hardening
+X11Forwarding no
+AllowTcpForwarding no
+AllowAgentForwarding no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+UsePAM yes
+
+# Logging
+SyslogFacility AUTH
+LogLevel VERBOSE
+
+# Banner
+Banner /etc/ssh/banner
+PrintMotd no
+PrintLastLog yes

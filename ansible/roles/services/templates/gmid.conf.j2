@@ -1,0 +1,23 @@
+# {{ ansible_managed }}
+# gmid — Gemini server for atl.sh
+
+server "{{ pubnix_domain }}" {
+    listen on * port {{ gemini_port }}
+    cert "/etc/letsencrypt/live/{{ pubnix_domain }}/fullchain.pem"
+    key "/etc/letsencrypt/live/{{ pubnix_domain }}/privkey.pem"
+
+    # Define CGI paths for user capsules
+    cgi "/~*/*.cgi"
+
+    # User capsules: gemini://atl.sh/~username → ~/public_gemini
+    location "/~*" {
+        root "/home"
+        auto index on
+    }
+
+    # Main capsule
+    location "*" {
+        root "{{ gemini_capsule_root }}"
+        auto index on
+    }
+}

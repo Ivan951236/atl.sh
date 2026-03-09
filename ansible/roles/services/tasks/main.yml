@@ -1,0 +1,9 @@
+---
+- name: Import web tasks
+  ansible.builtin.import_tasks: web.yml
+
+- name: Import gemini tasks
+  ansible.builtin.import_tasks: gemini.yml
+
+- name: Import gopher tasks
+  ansible.builtin.import_tasks: gopher.yml

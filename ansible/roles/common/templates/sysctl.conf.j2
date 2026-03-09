@@ -1,0 +1,29 @@
+# {{ ansible_managed }}
+# sysctl hardening for shared pubnix
+
+# Network hardening
+net.ipv4.tcp_syncookies = 1
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.default.accept_redirects = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.default.send_redirects = 0
+net.ipv4.conf.all.accept_source_route = 0
+net.ipv4.conf.default.accept_source_route = 0
+net.ipv4.icmp_echo_ignore_broadcasts = 1
+
+# Shared memory protection
+kernel.randomize_va_space = 2
+
+# Restrict dmesg access
+kernel.dmesg_restrict = 1
+
+# Limit core dumps
+fs.suid_dumpable = 0
+
+# Ptrace hardening (disable ptrace for non-descendants)
+kernel.yama.ptrace_scope = 1
+
+# Deny use of perf_event_open to unprivileged processes
+kernel.perf_event_paranoid = 2

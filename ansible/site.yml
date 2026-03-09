@@ -1,0 +1,17 @@
+---
+# atl.sh pubnix — main playbook
+# Usage: ansible-playbook site.yml [--tags common,ssh,web]
+
+- name: Configure atl.sh pubnix server
+  hosts: pubnix
+  become: true
+
+  roles:
+    - { role: common, tags: ["common"] }
+    - { role: packages, tags: ["packages"] }
+    - { role: security, tags: ["security"] }
+    - { role: users, tags: ["users"] }
+    - { role: environment, tags: ["environment", "env"] }
+    - { role: services, tags: ["services", "web"] }
+    - { role: monitoring, tags: ["monitoring"] }
+    - { role: backup, tags: ["backup"] }

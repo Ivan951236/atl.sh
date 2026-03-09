@@ -1,0 +1,62 @@
+---
+- name: Install nginx, fcgiwrap, and certbot
+  ansible.builtin.apt:
+    name:
+      - nginx
+      - fcgiwrap
+      - certbot
+      - python3-certbot-nginx
+    state: present
+
+- name: Deploy nginx main config
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    mode: "0644"
+    validate: "nginx -t -c %s"
+  notify: reload nginx
+
+- name: Deploy tilde site config
+  ansible.builtin.template:
+    src: tilde-site.conf.j2
+    dest: /etc/nginx/sites-available/tilde.conf
+    mode: "0644"
+  notify: reload nginx
+
+- name: Enable tilde site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/tilde.conf
+    dest: /etc/nginx/sites-enabled/tilde.conf
+    state: link
+  notify: reload nginx
+
+- name: Remove default site
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: reload nginx
+
+- name: Enable nginx and fcgiwrap
+  ansible.builtin.service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop:
+    - nginx
+    - fcgiwrap
+
+- name: Obtain SSL certificate
+  ansible.builtin.command:
+    cmd: >
+      certbot certonly --nginx
+      --non-interactive
+      --agree-tos
+      --email {{ admin_email }}
+      -d {{ pubnix_domain }}
+    creates: /etc/letsencrypt/live/{{ pubnix_domain }}/fullchain.pem
+
+- name: Enable auto-renewal timer
+  ansible.builtin.systemd:
+    name: certbot.timer
+    enabled: true
+    state: started

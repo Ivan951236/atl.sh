@@ -1,0 +1,20 @@
+---
+nginx_worker_processes: auto
+nginx_server_tokens: "off"
+nginx_gzip: "on"
+tilde_docroot: public_html
+
+# Security headers
+nginx_add_header_x_frame_options: "SAMEORIGIN"
+nginx_add_header_x_content_type_options: "nosniff"
+nginx_add_header_x_xss_protection: "1; mode=block"
+
+
+gemini_port: 1965
+gemini_user: _gmid
+gemini_capsule_root: /var/gemini
+
+gopher_port: 70
+gopher_hostname: "{{ pubnix_domain }}"
+gopher_root: /var/gopher
+gopher_user_dir: public_gopher

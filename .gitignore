@@ -1,0 +1,21 @@
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/terraform.tfvars
+terraform/.terraform.tfstate.lock.info
+
+# Ansible
+ansible/*.retry
+ansible/inventory/group_vars/all/vault.yml
+
+# References (research material, not part of the project)
+references
+.ansible
+
+# OS
+.DS_Store
+*.swp
+*.swo
+*~

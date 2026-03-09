@@ -1,0 +1,205 @@
+---
+# ──────────────────────────────────────────────
+# Shells
+# ──────────────────────────────────────────────
+user_shells:
+  - zsh
+  - fish
+  - mksh
+
+# ──────────────────────────────────────────────
+# Build tools & compilers
+# ──────────────────────────────────────────────
+build_tools:
+  - gcc
+  - g++
+  - make
+  - cmake
+  - autoconf
+  - automake
+  - libtool
+  - pkg-config
+  - libssl-dev
+  - libffi-dev
+  - libncurses-dev
+  - gdb
+  - clang
+  - llvm
+  - lldb
+  - valgrind
+  - ltrace
+  - bison
+  - flex
+  - ninja-build
+
+# ──────────────────────────────────────────────
+# Languages & runtimes
+# ──────────────────────────────────────────────
+languages:
+  - python3
+  - python3-pip
+  - python3-venv
+  - python3-dev
+  - nodejs
+  - npm
+  - ruby
+  - ruby-dev
+  - golang
+  - rustc
+  - cargo
+  - lua5.4
+  - perl
+  - gawk
+  - php-cli
+  - default-jdk
+  - default-jre
+  - elixir
+  - erlang
+  - yarn
+  - pnpm
+  - deno
+
+# ──────────────────────────────────────────────
+# Editors
+# ──────────────────────────────────────────────
+editors:
+  - vim
+  - neovim
+  - nano
+  - emacs-nox
+  - ed
+  - mg
+  - micro
+  - joe
+
+# ──────────────────────────────────────────────
+# Terminal multiplexers
+# ──────────────────────────────────────────────
+multiplexers:
+  - tmux
+  - screen
+  - byobu
+  - tmate
+
+# ──────────────────────────────────────────────
+# IRC/chat clients
+# ──────────────────────────────────────────────
+chat_clients:
+  - irssi
+  - weechat
+  - profanity
+
+# ──────────────────────────────────────────────
+# Mail clients (local mail, no SMTP needed)
+# ──────────────────────────────────────────────
+mail_clients:
+  - alpine
+  - neomutt
+
+# ──────────────────────────────────────────────
+# Web/Gemini/Gopher browsers
+# ──────────────────────────────────────────────
+browsers:
+  - lynx
+  - w3m
+  - elinks
+  - amfora
+
+# ──────────────────────────────────────────────
+# CLI tools & utilities
+# ──────────────────────────────────────────────
+cli_tools:
+  - git
+  - htop
+  - btop
+  - tree
+  - jq
+  - ripgrep
+  - fd-find
+  - fzf
+  - ncdu
+  - gdu
+  - bc
+  - sqlite3
+  - curl
+  - wget
+  - rsync
+  - file
+  - patch
+  - diffutils
+  - strace
+  - lsof
+  - moreutils
+  - rename
+  - dos2unix
+  - zip
+  - unzip
+  - bzip2
+  - xz-utils
+  - p7zip-full
+  - pv
+  - ncurses-bin
+  - ncurses-term
+  - mosh
+  - whois
+  - dnsutils
+  - mtr
+  - socat
+  - netcat-openbsd
+  - mc
+  - ranger
+  - lf
+  - yazi
+  - bat
+  - tig
+  - lazygit
+  - gnupg
+  - pass
+  - units
+  - slrn
+  - tin
+  - yq
+  - shellcheck
+  - git-lfs
+  - gh
+  - postgresql-client
+  - mariadb-client
+  - redis-tools
+  - ipython3
+  - bpython
+  - universal-ctags
+  - just
+  - pipx
+  - poetry
+
+# ──────────────────────────────────────────────
+# Fun / community
+# ──────────────────────────────────────────────
+fun_packages:
+  - fortune-mod
+  - cowsay
+  - figlet
+  - toilet
+  - lolcat
+  - sl
+  - cmatrix
+  - nyancat
+  - bsdgames
+  - nethack-console
+  - tty-clock
+  - bastet
+
+# ──────────────────────────────────────────────
+# System tools (admin)
+# ──────────────────────────────────────────────
+system_tools:
+  - acct # process accounting (sa, lastcomm)
+  - quota # disk quota tools
+  - mlocate # locate files
+  - man-db
+  - info
+  - bash-completion
+  - vnstat # bandwidth monitoring
+  - iotop # I/O monitoring
+  - fastfetch # modern system info (replaces neofetch)
+  - goaccess # web log analyzer
