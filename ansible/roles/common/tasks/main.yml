@@ -22,3 +22,17 @@
     mode: "0644"
     validate: "sysctl -p %s"
   notify: reload sysctl
+
+- name: Configure journald caps
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/journald.conf
+    regexp: '^#?SystemMaxUse='
+    line: 'SystemMaxUse=1G'
+    state: present
+  notify: restart journald
+
+- name: Apply robertdebock.logrotate role
+  ansible.builtin.include_role:
+    name: robertdebock.logrotate
+  vars:
+    logrotate_entries: "{{ logrotate_entries | default([]) }}"

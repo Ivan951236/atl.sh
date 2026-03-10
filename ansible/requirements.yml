@@ -10,3 +10,4 @@ roles:
   - name: geerlingguy.nginx
   - name: geerlingguy.ntp
   - name: robertdebock.fail2ban
+  - name: robertdebock.logrotate
