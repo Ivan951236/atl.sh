@@ -8,3 +8,4 @@ collections:
 roles:
   - name: robertdebock.auditd
   - name: geerlingguy.nginx
+  - name: geerlingguy.ntp
