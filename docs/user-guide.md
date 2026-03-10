@@ -32,6 +32,13 @@ We provide a wide range of tools including:
 - **Languages**: Python, Node.js, Ruby, Go, C/C++
 - **Utilities**: tmux, git, htop, ripgrep, jq, and more
 
+### Log Management
+
+We provide a standardized way for you to manage logs from your own processes (like CGI scripts or cron jobs):
+
+- **Private Logs**: Store your log files in `~/.local/state/log`.
+- **Auto-Rotation**: We provide a `.logrotate.conf` template in your home directory. If you configure it, the system will automatically rotate your logs daily to help you stay within your quota.
+
 ### Community
 
 - **IRC**: `#support` on `irc.atl.chat` (port 6697, SSL)

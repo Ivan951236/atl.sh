@@ -22,7 +22,8 @@ atl.sh is a shared system providing shell access, web hosting, and alternative p
 | Web Server | Nginx |
 | Gemini / Gopher | gmid, Gophernicus |
 | Backups | Borgmatic |
-| Security | UFW, Fail2ban, systemd user slices |
+| Logging | logrotate, journald |
+| Security | UFW, Fail2ban, Auditd, user slices |
 
 ## Security and Isolation
 

@@ -69,6 +69,15 @@ ansible-playbook site.yml --tags environment
 | monitoring  | Prometheus Node Exporter                     |
 | backup      | Borgmatic backups                            |
 
+## Logging & Auditing
+
+The system uses a hybrid approach to maintain performance and visibility:
+
+- **System Logs**: Managed by `systemd-journald` with a 1GB cap.
+- **Service Logs**: High-volume services (Nginx, Fail2ban) are rotated by `logrotate` with best practices (compression, date suffixes).
+- **Security Auditing**: `auditd` is configured with robust rules for monitoring system calls, file integrity, and potential "Living Off The Land" (LOTL) activities.
+- **User Logs**: A system-wide cron job runs `logrotate` for users who opt-in via `~/.logrotate.conf`.
+
 ## Secrets
 
 All secrets are stored in `ansible/inventory/group_vars/all/vault.yml` and encrypted with Ansible Vault.
