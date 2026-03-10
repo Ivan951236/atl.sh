@@ -5,7 +5,7 @@
 #   -e "ssh_public_key='ssh-ed25519 AAAA...'"
 
 - name: Create pubnix user account
-  hosts: pubnix
+  hosts: "{{ target_hosts | default('pubnix') }}"
   become: true
 
   tasks:

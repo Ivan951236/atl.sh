@@ -12,6 +12,7 @@ ntp_servers:
   - 1.pool.ntp.org
 
 # User defaults
+pubnix_group: users
 default_shell: /bin/bash
 
 # Web

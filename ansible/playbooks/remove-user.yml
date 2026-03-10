@@ -3,7 +3,7 @@
 # Usage: ansible-playbook playbooks/remove-user.yml -e "username=johndoe"
 
 - name: Remove pubnix user account
-  hosts: pubnix
+  hosts: "{{ target_hosts | default('pubnix') }}"
   become: true
 
   vars:
