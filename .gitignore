@@ -12,6 +12,7 @@ ansible/inventory/group_vars/all/vault.yml
 
 # References (research material, not part of the project)
 references
+!.claude/skills/pubnix/references
 .ansible
 
 # OS
