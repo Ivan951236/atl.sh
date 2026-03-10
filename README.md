@@ -56,11 +56,11 @@ just install
 
 ### Environments
 
-| Target   | Host                  | Description                    |
-|----------|-----------------------|--------------------------------|
-| `dev`    | atl-sh-dev            | Local Docker container         |
-| `staging`| atl-pubnix-staging    | Terraform Hetzner Cloud VPS    |
-| `prod`   | atl-pubnix            | Physical Hetzner server        |
+| Target   | Host     | Description                    |
+|----------|----------|--------------------------------|
+| `dev`    | dev      | Local Docker container         |
+| `staging`| staging  | Terraform Hetzner Cloud VPS    |
+| `prod`   | prod     | Physical Hetzner server        |
 
 ### Local Development Environment
 
