@@ -15,6 +15,10 @@ references
 !.claude/skills/pubnix/references
 .ansible
 
+# Dev environment
+.ssh/dev_key
+.ssh/dev_key.pub
+
 # OS
 .DS_Store
 *.swp
