@@ -9,3 +9,4 @@ roles:
   - name: robertdebock.auditd
   - name: geerlingguy.nginx
   - name: geerlingguy.ntp
+  - name: robertdebock.fail2ban
