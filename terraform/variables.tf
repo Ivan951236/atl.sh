@@ -21,15 +21,25 @@ variable "server_type" {
 }
 
 variable "server_location" {
-  description = "Hetzner datacenter location"
+  description = "Hetzner datacenter location (fsn1, nbg1, hel1)"
   type        = string
   default     = "fsn1"
+
+  validation {
+    condition     = contains(["fsn1", "nbg1", "hel1"], var.server_location)
+    error_message = "Server location must be fsn1, nbg1, or hel1."
+  }
 }
 
 variable "server_image" {
   description = "OS image for the server"
   type        = string
   default     = "debian-13"
+
+  validation {
+    condition     = can(regex("^[a-z0-9][a-z0-9-]*$", var.server_image))
+    error_message = "Server image must be a valid Hetzner image identifier (e.g. debian-13, ubuntu-24.04)."
+  }
 }
 
 variable "ssh_public_key_path" {
@@ -51,10 +61,15 @@ variable "cloudflare_api_token" {
 variable "cloudflare_zone_id" {
   description = "Cloudflare Zone ID for atl.sh"
   type        = string
+
+  validation {
+    condition     = length(var.cloudflare_zone_id) >= 32 && can(regex("^[a-f0-9]+$", var.cloudflare_zone_id))
+    error_message = "Cloudflare zone ID must be a hex string (at least 32 characters)."
+  }
 }
 
 variable "dns_subdomain" {
-  description = "Subdomain to point at the test VPS (e.g., 'test' → test.atl.sh)"
+  description = "Subdomain for the staging VPS (e.g., 'staging' → staging.atl.sh)"
   type        = string
-  default     = "test"
+  default     = "staging"
 }

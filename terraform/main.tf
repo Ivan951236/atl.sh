@@ -59,6 +59,13 @@ resource "hcloud_firewall" "pubnix" {
 # Server
 # ──────────────────────────────────────────────
 
+locals {
+  common_labels = {
+    project     = "atl-pubnix"
+    environment = "test"
+  }
+}
+
 resource "hcloud_server" "pubnix" {
   name        = var.server_name
   server_type = var.server_type
@@ -69,10 +76,7 @@ resource "hcloud_server" "pubnix" {
 
   firewall_ids = [hcloud_firewall.pubnix.id]
 
-  labels = {
-    project     = "atl-pubnix"
-    environment = "test"
-  }
+  labels = local.common_labels
 }
 
 # ──────────────────────────────────────────────
