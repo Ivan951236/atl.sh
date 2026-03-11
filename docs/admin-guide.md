@@ -33,7 +33,7 @@ just deploy staging   # or: deploy prod for physical server
 
 | Target   | Hostname            | Host (env override)     |
 |----------|---------------------|-------------------------|
-| dev      | dev      | 127.0.0.1:2222          |
+| dev      | dev      | 127.0.0.1:2223          |
 | staging  | staging  | staging.atl.sh (ATL_HOST=atl.sh) |
 | prod     | prod     | atl.sh (ATL_HOST)                |
 

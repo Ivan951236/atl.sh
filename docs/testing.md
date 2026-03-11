@@ -12,6 +12,7 @@ Test Ansible playbooks locally using a Vagrant VM before deploying to staging/pr
 
 - [Vagrant](https://www.vagrantup.com/)
 - [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt) + libvirt (KVM) — required; the Debian Trixie box does not support VirtualBox
+- **dnsmasq** — required by libvirt for the default NAT network (DHCP/DNS for VMs)
 - SSH key pair for dev access (create if missing):
 
 ```bash
@@ -87,7 +88,7 @@ just dev-up
 # Vagrant will download the box, boot the VM, and configure root SSH access
 
 # 3. Test SSH connection
-ssh -i .ssh/dev_key -p 2222 -o StrictHostKeyChecking=no root@127.0.0.1
+ssh -i .ssh/dev_key -p 2223 -o StrictHostKeyChecking=no root@127.0.0.1
 
 # 4. Run Ansible playbook against dev VM
 just deploy dev
@@ -111,6 +112,12 @@ ansible-playbook site.yml -l dev --tags security -vvv
 
 The `debian/trixie64` box supports only **libvirt** (KVM). If Vagrant picks VirtualBox by default, set `export VAGRANT_DEFAULT_PROVIDER=libvirt` before `just dev-up`.
 
+### Vagrant–libvirt specifics
+
+- **Port 2223**: vagrant-libvirt skips port forwarding when `id: "ssh"` (Vagrant's default). We use `id: "ssh_lh"` and port 2223 to avoid duplicate declarations with Vagrant's built-in 2222.
+- **Synced folders disabled**: The default `/vagrant` sync uses NFS, which requires `nfs-common` in the guest. That can fail if the VM lacks IPv6 connectivity (apt tries IPv6 first for Debian mirrors). Ansible runs from the host over SSH, so no project files are needed in the VM.
+- **Root SSH**: The provisioner copies `.ssh/dev_key.pub` to `/root/.ssh/authorized_keys` and runs `chown root:root` so sshd accepts the key (files uploaded by Vagrant are owned by the vagrant user).
+
 ## Troubleshooting
 
 - **Provider mismatch / wrong VM state**: If you previously used VirtualBox or have stale state, remove `.vagrant` and re-run `just dev-up`:
@@ -120,29 +127,40 @@ The `debian/trixie64` box supports only **libvirt** (KVM). If Vagrant picks Virt
   ```
 - **Plugin errors**: If Vagrant fails to initialize, try `vagrant plugin repair` or `vagrant plugin expunge --reinstall`
 - **Provider not found**: Install `vagrant-libvirt` (Arch: `pacman -S vagrant libvirt`)
-- **Port 2222 in use**: Change the host port in the Vagrantfile and update `ansible_port` in `ansible/inventory/hosts.yml`
-- **libvirt `virNetworkCreate` / `guest_nat` nftables error**: The default libvirt NAT network can conflict with nftables on Arch. Try:
+- **"Unable to find 'dnsmasq' binary"**: Libvirt needs dnsmasq for the default NAT network. Install it: `sudo pacman -S dnsmasq` (Arch)
+- **"Permission denied (publickey)" for root@127.0.0.1**: The provisioner may have left `authorized_keys` owned by vagrant. Re-run `vagrant provision` (the provisioner now sets `chown root:root`). If it persists, `vagrant ssh` in and run `sudo chown root:root /root/.ssh/authorized_keys`.
+- **Port 2223 in use**: Change the host port in the Vagrantfile (in the libvirt provider block, `override.vm.network`) and update `ansible_port` in `ansible/inventory/hosts.yml`. Use a port other than 2222 to avoid Vagrant's built-in default.
+- **libvirt `virNetworkCreate` / `guest_nat` nftables error**: The default libvirt NAT network can conflict with nftables on Arch. See [libvirt - ArchWiki](https://wiki.archlinux.org/title/Libvirt#Using_nftables) and [nftables - ArchWiki](https://wiki.archlinux.org/title/Nftables).
 
-  1. Flush leftover libvirt nftables tables:
+  1. **Flush and reset**: Remove leftover libvirt tables and the default network, then restart:
      ```bash
      sudo nft delete table ip libvirt_network 2>/dev/null
      sudo nft delete table ip6 libvirt_network 2>/dev/null
-     ```
-
-  2. Reset the default network:
-     ```bash
      sudo virsh net-destroy default 2>/dev/null || true
-     sudo virsh net-undefine default
+     sudo virsh net-undefine default 2>/dev/null || true
      sudo systemctl restart libvirtd
      ```
      (libvirt recreates the default network on next `vagrant up`)
 
-  3. If that fails, try forcing libvirt to use iptables — create `/etc/libvirt/network.conf` with `firewall_backend='iptables'`, then restart libvirtd. **Note**: Zen kernel lacks iptables modules; this workaround will not work on Arch with Zen. Use steps 1–2 instead.
+  2. **Allow virbr0 in nftables**: If you use a custom `/etc/nftables.conf` with `policy drop`, add rules so libvirt NAT works:
+     ```
+     iifname virbr0 udp dport {53, 67} accept    # in chain input
+     iifname virbr0 accept                        # in chain forward
+     oifname virbr0 accept                        # in chain forward
+     ```
+     See the libvirt ArchWiki "Using nftables" section for the full snippet.
+
+  3. **Try iptables backend** (if your kernel supports it): Create `/etc/libvirt/network.conf` with `firewall_backend = "iptables"`, then restart libvirtd. **Note**: Zen kernel may lack legacy iptables modules; if you get "Table does not exist" errors, revert to nftables.
+
+  4. **"No such file or directory" on `guest_nat` / `postrouting`** (nft NAT): Libvirt needs the `nft_nat` kernel module for NAT on the default network. If `modprobe nft_nat` fails with "Module not found", your running kernel lacks the module:
+     - **Cause**: The `CONFIG_NFT_NAT` kernel option provides NAT chains in nftables; without the module, `type nat hook postrouting` fails.
+     - **Fix**: Reinstall the kernel package so modules exist: `sudo pacman -S linux-zen`. If your running kernel (e.g. 6.18.5) no longer has a `/lib/modules/$(uname -r)/` directory (e.g. after an upgrade), boot into another kernel that has modules (e.g. 6.19.6) or reinstall the matching kernel.
+     - **Verify**: `sudo modprobe nft_nat && sudo nft add table ip t; sudo nft add chain ip t p '{ type nat hook postrouting priority 100; }'` — if this succeeds, libvirt NAT should work.
 
 ## Notes
 
 - SSH key authentication using `.ssh/dev_key` (not committed to git)
-- SSH available on `127.0.0.1:2222`
+- SSH available on `127.0.0.1:2223` (see [Vagrant–libvirt specifics](#vagrantlibvirt-specifics) for why 2223)
 - VM uses Debian 13 (Trixie) to match production
 - Dev target runs full playbook including security and quotas
 - Native systemd — all Ansible tasks run as they would on staging/prod

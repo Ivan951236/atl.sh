@@ -11,18 +11,22 @@ Vagrant.configure("2") do |config|
   config.vm.box = "debian/trixie64"
   config.vm.hostname = "atl-sh-dev"
 
-  config.vm.network "forwarded_port", guest: 22, host: 2222, host_ip: "127.0.0.1", id: "ssh"
+  # Disable synced folders — Ansible runs from host over SSH; no project files needed in VM
+  config.vm.synced_folder ".", "/vagrant", disabled: true
 
-  config.vm.provider "libvirt" do |v|
+  config.vm.provider "libvirt" do |v, override|
     v.memory = 4096
     v.cpus = 4
+    # Add ssh forward — libvirt skips default id "ssh"; use id "ssh_lh" and port 2223 to avoid duplicate with Vagrant's 2222
+    override.vm.network "forwarded_port", guest: 22, host: 2223, host_ip: "127.0.0.1", id: "ssh_lh"
   end
 
   # Provision root SSH access for Ansible
   config.vm.provision "file", source: ".ssh/dev_key.pub", destination: "/tmp/authorized_keys.pub"
-  config.vm.provision "shell", inline: <<-SHELL
+  config.vm.provision "shell", privileged: true, inline: <<-SHELL
     mkdir -p /root/.ssh
     mv /tmp/authorized_keys.pub /root/.ssh/authorized_keys
+    chown root:root /root/.ssh /root/.ssh/authorized_keys
     chmod 700 /root/.ssh
     chmod 600 /root/.ssh/authorized_keys
     sed -i 's/^#*PermitRootLogin.*/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config

@@ -65,14 +65,14 @@ just install
 
 ### Local Development Environment
 
-A Vagrant VM for testing Ansible playbooks locally. Requires `.ssh/dev_key` and `.ssh/dev_key.pub` (create with `ssh-keygen -f .ssh/dev_key -t ed25519 -N ""`).
+A Vagrant VM for testing Ansible playbooks locally. Requires `.ssh/dev_key` and `.ssh/dev_key.pub` (create with `ssh-keygen -f .ssh/dev_key -t ed25519 -N ""`). See [docs/testing.md](docs/testing.md) for full setup and troubleshooting.
 
 ```bash
 just dev-up
 just deploy dev
 
-# SSH into dev VM
-ssh -p 2222 -i .ssh/dev_key root@127.0.0.1
+# SSH into dev VM (port 2223; see docs/testing.md for vagrant-libvirt notes)
+ssh -p 2223 -i .ssh/dev_key root@127.0.0.1
 ```
 
 The development VM:
