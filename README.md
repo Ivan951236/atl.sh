@@ -3,9 +3,7 @@
 > [!NOTE]
 > **This project is under heavy development.** Specifics and features are subject to change.
 
-> Public UNIX environment for the [All Things Linux](https://allthingslinux.org) community — shell access, web hosting, Gemini, Gopher, and FTP.
-
-atl.sh is a **pubnix** (public-access Unix server) providing shared shell accounts with static web hosting, alternative protocol support (Gemini, Gopher), and FTP over TLS. Built for learning, sharing, and community.
+**atl.sh** is a **public UNIX environment (pubnix)** for the [All Things Linux](https://allthingslinux.org) community — shared shell accounts, static web hosting, Gemini, Gopher, and FTP over TLS. Built for learning, sharing, and community.
 
 ---
 
