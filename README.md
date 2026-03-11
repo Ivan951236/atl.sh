@@ -78,7 +78,7 @@ ssh -p 2222 -i .ssh/dev_key root@127.0.0.1
 The development VM:
 - Runs Debian Trixie with native systemd
 - Uses 4GB RAM, 4 CPUs
-- Skips security hardening (sysctl) and quotas when deploying — test those on staging
+- Runs full playbook including security and quotas (Vagrant VM matches staging/prod)
 
 ## Deployment
 
