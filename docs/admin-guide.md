@@ -31,11 +31,11 @@ just deploy staging   # or: deploy prod for physical server
 
 ### Environments
 
-| Target   | Hostname            | Host (env override)     |
-|----------|---------------------|-------------------------|
-| dev      | dev      | 127.0.0.1:2223          |
-| staging  | staging  | staging.atl.sh (ATL_HOST=atl.sh) |
-| prod     | prod     | atl.sh (ATL_HOST)                |
+| Target   | Ansible host   | Host (env override)              |
+|----------|----------------|----------------------------------|
+| dev      | atl-sh-dev     | 127.0.0.1:2223                   |
+| staging  | atl-sh-staging | staging.atl.sh (ATL_HOST=atl.sh) |
+| prod     | atl-sh-prod    | atl.sh (ATL_HOST)                |
 
 ### User Management
 

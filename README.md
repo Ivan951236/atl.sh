@@ -57,11 +57,11 @@ just install
 
 ### Environments
 
-| Target   | Host     | Description                    |
-|----------|----------|--------------------------------|
-| `dev`    | dev      | Local Vagrant VM               |
-| `staging`| staging  | Terraform Hetzner Cloud VPS    |
-| `prod`   | prod     | Physical Hetzner server        |
+| Target   | Host          | Description                    |
+|----------|---------------|--------------------------------|
+| `dev`    | atl-sh-dev    | Local Vagrant VM               |
+| `staging`| atl-sh-staging| Terraform Hetzner Cloud VPS    |
+| `prod`   | atl-sh-prod   | Physical Hetzner server        |
 
 ### Local Development Environment
 
