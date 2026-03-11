@@ -3,7 +3,7 @@
 
 Port = {{ gemini_port }}
 Hostname = "{{ pubnix_domain }}"
-{% if ansible_virtualization_type == 'docker' %}
+{% if 'dev' in group_names %}
 CertPath = "/etc/ssl/certs/molly-brown.crt"
 KeyPath = "/etc/ssl/private/molly-brown.key"
 {% else %}
