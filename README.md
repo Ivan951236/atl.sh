@@ -161,7 +161,7 @@ just syntax-check  # ansible playbook syntax check only
 
 ## Documentation
 
-Full documentation is at **[docs.atl.sh](https://docs.atl.sh)**, built with Fumadocs and deployed to Cloudflare Workers from the `site/` directory.
+Full documentation is at **[docs.atl.sh](https://docs.atl.sh)**, built with Fumadocs and deployed to Cloudflare Workers from the `docs/` directory.
 
 ---
 
