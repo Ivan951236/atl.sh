@@ -8,8 +8,8 @@ Test Ansible playbooks locally using a Vagrant VM before deploying to staging/pr
 ## Environments
 
 - **dev** (Vagrant): Local VM for Ansible testing
-- **staging** (Terraform): Cloud instance for pre-production validation
-- **production** (Terraform): Live system
+- **staging** (Terraform): Hetzner Cloud VPS for pre-production validation
+- **production** (bare-metal): Physical Hetzner server — not managed by Terraform
 
 ## Prerequisites
 
@@ -105,10 +105,20 @@ just dev-down
 
 ## Testing Specific Roles
 
+Run only the roles you're working on to speed up iteration:
+
 ```bash
 cd ansible
-ansible-playbook site.yml -l dev --tags common,packages
-ansible-playbook site.yml -l dev --tags security -vvv
+ansible-playbook site.yml -l dev --tags base
+ansible-playbook site.yml -l dev --tags infra -vvv
+ansible-playbook site.yml -l dev --tags services
+ansible-playbook site.yml -l dev --tags "base,infra"
+```
+
+Use `--check` to do a dry run without making changes:
+
+```bash
+ansible-playbook site.yml -l dev --tags infra --check --diff
 ```
 
 ## Provider Notes
