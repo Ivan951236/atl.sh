@@ -62,7 +62,6 @@
       - moon-buggy      # Side-scrolling moon rover
       - nsnake          # Classic snake
       - bastet          # "Bastard Tetris" — deliberately gives worst pieces
-      - netris          # Head-to-head competitive Tetris over network
       - vitetris        # Feature-rich Tetris with 2-player split-screen
     state: present
 
@@ -101,7 +100,6 @@
       - cowsay          # ASCII animal message printer
       - fortune-mod     # Random quotes and jokes
       - fortunes        # Standard fortune cookie database
-      - fortunes-off    # Additional (edgy) fortunes, opt-in via user config
       - lolcat          # Rainbow pipe colorizer
       - figlet          # Large ASCII text banners
       - toilet          # figlet with color and extra font options
@@ -116,7 +114,6 @@
   ansible.builtin.apt:
     name:
       - libcurses-perl
-      - libterm-animation-perl
     state: present
 
 - name: Download ASCIIquarium
