@@ -125,6 +125,10 @@ molecule-verify role:
 molecule-destroy role:
     cd ansible/roles/{{ role }} && uv run molecule destroy
 
+# Run end-to-end smoke test (creates temp user, validates all services, cleans up)
+smoke-test target="dev":
+    cd ansible && ansible-playbook playbooks/smoke-test.yml -e "target_hosts={{ target }}"
+
 # SSH into molecule instance for a role
 molecule-login role:
     cd ansible/roles/{{ role }} && uv run molecule login
