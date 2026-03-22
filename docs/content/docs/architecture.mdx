@@ -6,6 +6,76 @@ description: Infrastructure, networking, and system design for atl.sh.
 This page describes how atl.sh is built: the infrastructure layer, the
 configuration layer managed by Ansible, and the services that run on the server.
 
+## System diagram
+
+```mermaid
+graph TB
+  subgraph External["External Clients"]
+    SSH["SSH Clients\n(:22, :2222)"]
+    Browser["Web Browsers"]
+    GemClient["Gemini Clients\n(:1965)"]
+    GophClient["Gopher Clients\n(:70)"]
+    FingerClient["Finger Clients\n(:79)"]
+    FTPClient["FTP Clients\n(:21)"]
+  end
+
+  subgraph Server["atl.sh · Debian 13 (Trixie)"]
+    sshd["sshd\n:22, :2222"]
+    nginx["nginx\n:80, :443"]
+    molly["molly-brown\n:1965"]
+    gopher["Gophernicus\n:70"]
+    finger["efingerd\n:79"]
+    vsftpd["vsftpd\n:21"]
+
+    subgraph UserSpace["User Space"]
+      home["~/public_html\n~/public_gemini\n~/public_gopher\n~/.plan"]
+    end
+
+    fcgi["fcgiwrap\n(unix socket)"]
+  end
+
+  SSH --> sshd --> UserSpace
+  Browser --> nginx --> home
+  nginx --> fcgi --> home
+  GemClient --> molly --> home
+  GophClient --> gopher --> home
+  FingerClient --> finger --> home
+  FTPClient --> vsftpd --> home
+```
+
+## Request flow: web page
+
+```mermaid
+sequenceDiagram
+  participant B as Browser
+  participant N as nginx (:443)
+  participant F as fcgiwrap
+  participant H as ~/public_html
+
+  B->>N: GET /~alice/
+  N->>H: alias /home/alice/public_html/
+  H-->>N: index.html
+  N-->>B: 200 OK + HTML
+
+  B->>N: GET /~alice/stats.cgi
+  N->>F: FastCGI (unix socket)
+  F->>H: exec stats.cgi
+  H-->>F: stdout
+  F-->>N: CGI response
+  N-->>B: 200 OK + dynamic content
+```
+
+## User session lifecycle
+
+```mermaid
+flowchart LR
+  A[SSH connect] --> B[PAM auth\nkey-based only]
+  B --> C[pam_namespace\nprivate /tmp]
+  C --> D[systemd user slice\n1.5GB RAM, 200% CPU, 200 PIDs]
+  D --> E[Shell session\nbash/zsh/fish]
+  E --> F[Disconnect\nslice cleaned up]
+```
+
 ## Infrastructure
 
 atl.sh runs on a physical dedicated server hosted by
