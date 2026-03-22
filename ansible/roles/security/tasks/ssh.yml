@@ -5,7 +5,7 @@
     dest: /etc/ssh/sshd_config
     mode: "0600"
     validate: "sshd -t -f %s"
-  notify: restart sshd
+  notify: Restart sshd
 
 - name: Install fail2ban
   ansible.builtin.apt:
@@ -17,7 +17,7 @@
     src: jail.local.j2
     dest: /etc/fail2ban/jail.local
     mode: "0644"
-  notify: restart fail2ban
+  notify: Restart fail2ban
 
 - name: Enable fail2ban
   ansible.builtin.service:
