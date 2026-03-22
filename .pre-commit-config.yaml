@@ -8,12 +8,9 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
 
-  - repo: https://github.com/ansible/ansible-lint
-    rev: v26.3.0
-    hooks:
-      - id: ansible-lint
-        files: ^ansible/
-        exclude: ^ansible/roles/.*/molecule/
+  # NOTE: ansible-lint removed from pre-commit due to known hanging issues
+  # with pre-commit 4.x + ansible-lint v26. Run via `just lint` instead.
+  # See: https://forum.ansible.com/t/ansible-lint-hook-no-longer-works-with-pre-commit-4-3-0/44792
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.105.0
