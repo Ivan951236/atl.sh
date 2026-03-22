@@ -103,6 +103,7 @@ dev-down:
 # Run pre-commit hooks on all files
 lint:
     pre-commit run --all-files
+    ansible-lint
 
 # Edit Ansible vault (secrets)
 vault-edit:
