@@ -13,6 +13,7 @@ atl.sh is a public Unix environment (pubnix) for the All Things Linux community:
 | `just lint` | pre-commit, then ansible-lint |
 | `just syntax-check` | Ansible syntax-check only |
 | `just molecule-test <role>` | Molecule lifecycle for a role |
+| `just smoke-test <target>` | End-to-end test: creates temp user, validates all services, cleans up |
 
 ## Detailed instructions
 

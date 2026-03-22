@@ -168,6 +168,7 @@ Roles run in the order defined in [`ansible/site.yml`](ansible/site.yml):
 
 | Command | Use |
 |---------|-----|
+| `just smoke-test <target>` | End-to-end test: creates temp user, validates all services, cleans up |
 | `just deploy-check <target>` | Ansible in check mode (no changes) |
 | `just deploy-list-tags` | Tags you can pass to `deploy-tag` |
 | `just vault-edit` | Edit encrypted `ansible/inventory/group_vars/all/vault.yml` |
