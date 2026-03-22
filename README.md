@@ -139,15 +139,39 @@ just create-user <username> '<ssh-ed25519 AAAA...>' prod
 just remove-user <username> prod
 ```
 
+### Repository layout
+
+| Path | Contents |
+|------|----------|
+| `ansible/` | Playbooks, inventory, and roles (see table below) |
+| `terraform/` | Hetzner Cloud + Cloudflare for staging; details in [terraform/README.md](terraform/README.md) |
+| `docs/` | Fumadocs site source for [docs.atl.sh](https://docs.atl.sh) |
+| `skel/` | Templates for new user home directories; see [skel/README.md](skel/README.md) |
+
 ### Ansible Roles
+
+Roles run in the order defined in [`ansible/site.yml`](ansible/site.yml):
 
 | Role | Purpose |
 |------|---------|
-| `base` | Apt cache, base packages, NTP, shells, languages, editors, CLI tools |
-| `infra` | SSH hardening, firewall, fail2ban, auditd, AIDE, monitoring, backups |
+| `common` | Apt cache, base packages, NTP, journald, shared logrotate |
+| `packages` | Shells, languages, editors, multiplexers, CLI tools, games, and related packages |
+| `security` | Kernel and auth hardening, SSH, firewall, fail2ban, auditd, AIDE, unattended upgrades |
 | `users` | Skel files, MOTD, PAM limits |
-| `environment` | Cgroup limits, disk quotas, tmpfs isolation, XDG dirs, PATH |
-| `services` | Nginx, Gemini, Gopher, finger, FTP, games, webring |
+| `environment` | Cgroup limits, disk quotas, private `/tmp`, XDG dirs, PATH |
+| `services` | Nginx, Gemini, Gopher, finger, games, webring |
+| `ftp` | vsftpd (FTP/S) |
+| `monitoring` | Prometheus node exporter, smartmontools, lm-sensors |
+| `backup` | Borgmatic / BorgBackup |
+
+### Extra `just` commands
+
+| Command | Use |
+|---------|-----|
+| `just deploy-check <target>` | Ansible in check mode (no changes) |
+| `just deploy-list-tags` | Tags you can pass to `deploy-tag` |
+| `just vault-edit` | Edit encrypted `ansible/inventory/group_vars/all/vault.yml` |
+| `just molecule-test <role>` | Full Molecule lifecycle for a role under `ansible/roles/` |
 
 ### Linting
 
@@ -162,6 +186,12 @@ just syntax-check  # ansible playbook syntax check only
 ## Documentation
 
 Full documentation is at **[docs.atl.sh](https://docs.atl.sh)**, built with Fumadocs and deployed to Cloudflare Workers from the `docs/` directory.
+
+---
+
+## Contributing
+
+Source and issue tracker: **[github.com/allthingslinux/atl.sh](https://github.com/allthingslinux/atl.sh)**. Pull requests and bug reports are welcome.
 
 ---
 
