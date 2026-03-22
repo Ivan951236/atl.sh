@@ -18,6 +18,14 @@
         - Remount root filesystem
         - Initialize quota files
 
+    - name: Flush handlers to create quota files before use
+      ansible.builtin.meta: flush_handlers
+
+    - name: Initialize quota files if missing
+      ansible.builtin.command: quotacheck -cugm /
+      args:
+        creates: /aquota.user
+
     - name: Turn on quotas
       ansible.builtin.command: quotaon -v /
       register: quotaon_result

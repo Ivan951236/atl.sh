@@ -9,7 +9,7 @@
     state: remounted
 
 - name: Initialize quota files
-  ansible.builtin.command: quotacheck -cug /
+  ansible.builtin.command: quotacheck -cugm /
   args:
     creates: /aquota.user
   changed_when: true
