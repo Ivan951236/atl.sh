@@ -7,11 +7,15 @@
     "publishing",
     "development",
     "resources",
+    "---",
+    "services",
+    "---",
     "admin-guide",
-    "architecture",
     "operations",
     "testing",
+    "---",
     "faq",
+    "reference",
     "code-of-conduct"
   ]
 }
