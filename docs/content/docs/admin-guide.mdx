@@ -249,8 +249,8 @@ Run all linters before opening a pull request:
 just lint
 ```
 
-This runs `pre-commit` against all files, which invokes `ansible-lint`,
-`yamllint`, and `terraform fmt`/`validate` as configured in `.pre-commit-config.yaml`.
+This runs `pre-commit` against all files (trailing whitespace, YAML checks,
+`terraform fmt`/`validate`) followed by `ansible-lint` separately.
 
 To check only playbook syntax without running all hooks:
 
