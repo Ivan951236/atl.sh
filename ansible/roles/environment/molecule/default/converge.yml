@@ -4,6 +4,12 @@
   gather_facts: true
   become: true
 
+  pre_tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
   vars:
     pubnix_domain: atl.sh
     user_cpu_quota: "200%"
@@ -11,6 +17,7 @@
     user_tasks_max: 200
     quota_soft: 5G
     quota_hard: 6G
+    quota_enabled: false
 
   roles:
     - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"

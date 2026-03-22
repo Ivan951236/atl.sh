@@ -12,7 +12,8 @@ repos:
     rev: v26.3.0
     hooks:
       - id: ansible-lint
-        files: \.(yaml|yml)$
+        files: ^ansible/
+        exclude: ^ansible/roles/.*/molecule/
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.105.0
