@@ -1,19 +1,5 @@
 ---
 # Enhanced auditd configuration
-- name: Configure auditd for security
-  ansible.builtin.lineinfile:
-    path: /etc/audit/auditd.conf
-    regexp: "^{{ item.key }}"
-    line: "{{ item.key }} = {{ item.value }}"
-    state: present
-  loop:
-    - { key: 'max_log_file_action', value: 'keep_logs' }
-    - { key: 'space_left_action', value: 'email' }
-    - { key: 'admin_space_left_action', value: 'halt' }
-    - { key: 'disk_full_action', value: 'halt' }
-    - { key: 'disk_error_action', value: 'halt' }
-  notify: Restart auditd
-
 - name: Configure audit backlog limit in GRUB
   ansible.builtin.lineinfile:
     path: /etc/default/grub
@@ -30,3 +16,4 @@
     - /etc/audit/auditd.conf
     - /etc/audit/rules.d/audit.rules
   failed_when: false
+  changed_when: false
