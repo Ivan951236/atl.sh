@@ -11,6 +11,8 @@ default:
 _ansible := justfile_directory() + "/.ansible"
 [private]
 _ansible_dir := justfile_directory() + "/ansible"
+[private]
+_molecule_lib := `python3 -c "import molecule_plugins, os; print(os.path.dirname(molecule_plugins.__file__))"` + "/vagrant/modules"
 
 # Install Ansible collections and roles (run before first deploy or when requirements.yml changes)
 install:
@@ -111,19 +113,19 @@ vault-edit:
 
 # Run full molecule test lifecycle for a role (create → converge → verify → destroy)
 molecule-test role:
-    cd ansible/roles/{{ role }} && uv run molecule test
+    cd ansible/roles/{{ role }} && ANSIBLE_LIBRARY={{ _molecule_lib }} uv run molecule test
 
 # Run molecule converge only (applies the role, keeps instance running)
 molecule-converge role:
-    cd ansible/roles/{{ role }} && uv run molecule converge
+    cd ansible/roles/{{ role }} && ANSIBLE_LIBRARY={{ _molecule_lib }} uv run molecule converge
 
 # Run molecule verify only (runs verify.yml against existing instance)
 molecule-verify role:
-    cd ansible/roles/{{ role }} && uv run molecule verify
+    cd ansible/roles/{{ role }} && ANSIBLE_LIBRARY={{ _molecule_lib }} uv run molecule verify
 
 # Destroy molecule instance for a role
 molecule-destroy role:
-    cd ansible/roles/{{ role }} && uv run molecule destroy
+    cd ansible/roles/{{ role }} && ANSIBLE_LIBRARY={{ _molecule_lib }} uv run molecule destroy
 
 # Run end-to-end smoke test (creates temp user, validates all services, cleans up)
 smoke-test target="dev":
@@ -131,4 +133,4 @@ smoke-test target="dev":
 
 # SSH into molecule instance for a role
 molecule-login role:
-    cd ansible/roles/{{ role }} && uv run molecule login
+    cd ansible/roles/{{ role }} && ANSIBLE_LIBRARY={{ _molecule_lib }} uv run molecule login
