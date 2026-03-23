@@ -14,6 +14,13 @@ fail2ban_bantime: 3600
 fail2ban_findtime: 600
 fail2ban_maxretry: 5
 
+# robertdebock.auditd variables — aligned with audit-hardening.yml intent
+auditd_max_log_file_action: rotate
+auditd_space_left_action: email
+auditd_admin_space_left_action: halt
+auditd_disk_full_action: halt
+auditd_disk_error_action: halt
+
 
 firewall_allowed_tcp_ports:
   - "22" # SSH primary
