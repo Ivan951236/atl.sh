@@ -30,6 +30,7 @@
     enabled: true
     state: started
   failed_when: false
+  changed_when: false
 
 - name: Enable hardware sensors daemon
   ansible.builtin.systemd:
@@ -37,3 +38,4 @@
     enabled: true
     state: started
   failed_when: false
+  changed_when: false
