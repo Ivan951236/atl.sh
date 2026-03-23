@@ -20,6 +20,7 @@
     port: "{{ item }}"
     proto: tcp
   loop: "{{ firewall_allowed_tcp_ports }}"
+  changed_when: false
 
 - name: Rate limit SSH
   community.general.ufw:
@@ -27,6 +28,7 @@
     port: "22"
     proto: tcp
   when: firewall_rate_limit_ssh
+  changed_when: false
 
 - name: Enable ufw
   community.general.ufw:
