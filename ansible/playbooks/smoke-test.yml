@@ -160,6 +160,19 @@
         port: 21
         timeout: 5
 
+    - name: "TEST: dictd is running"
+      ansible.builtin.service:
+        name: dictd
+      register: dictd_status
+      failed_when: dictd_status.status.ActiveState != 'active'
+
+    - name: "TEST: dict lookup returns definitions"
+      ansible.builtin.command:
+        cmd: dict hello
+      register: dict_test
+      changed_when: false
+      failed_when: "'definition' not in dict_test.stdout and 'definitions found' not in dict_test.stdout"
+
     - name: "TEST: Private /tmp isolation"
       ansible.builtin.shell:
         cmd: |
