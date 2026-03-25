@@ -109,3 +109,9 @@
     src: social/community.sh.j2
     dest: /usr/local/bin/community
     mode: "0755"
+
+- name: Deploy menu command (templated)
+  ansible.builtin.template:
+    src: social/menu.sh.j2
+    dest: /usr/local/bin/menu
+    mode: "0755"
