@@ -16,3 +16,6 @@
 
 - name: Import games tasks
   ansible.builtin.import_tasks: games.yml
+
+- name: Import dict tasks
+  ansible.builtin.import_tasks: dict.yml

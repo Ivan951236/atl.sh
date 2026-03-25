@@ -28,3 +28,8 @@
     name: finger.socket
     state: restarted
     daemon_reload: true
+
+- name: Restart dictd
+  ansible.builtin.service:
+    name: dictd
+    state: restarted
