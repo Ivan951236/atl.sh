@@ -11,7 +11,6 @@ user_shells:
   - rc
   - elvish
   - nushell
-  - dash
 
 # ──────────────────────────────────────────────
 # Build tools & compilers
@@ -210,6 +209,7 @@ cli_tools:
   - nethogs
   - traceroute
   - telnet
+  - clex
 
 # ──────────────────────────────────────────────
 # Fun / community
@@ -241,6 +241,7 @@ system_tools:
   - vnstat # bandwidth monitoring
   - iotop # I/O monitoring
   - fastfetch # modern system info (replaces neofetch)
+  - hyfetch # fastfetch with pride flags
   - goaccess # web log analyzer
   - sysstat # system performance tools
   - glances # cross-platform system monitoring
