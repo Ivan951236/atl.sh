@@ -6,6 +6,10 @@ user_shells:
   - zsh
   - fish
   - mksh
+  - tcsh
+  - ksh93u+m
+  - rc
+  - elvish
 
 # ──────────────────────────────────────────────
 # Build tools & compilers
@@ -106,6 +110,8 @@ chat_clients:
   - irssi
   - weechat
   - profanity
+  - talk    # user-to-user real-time chat (talk username)
+  - talkd   # talk daemon (runs via openbsd-inetd, pulled as dependency)
 
 # ──────────────────────────────────────────────
 # Mail clients (local mail, no SMTP needed)

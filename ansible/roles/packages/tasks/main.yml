@@ -71,3 +71,7 @@
     - /usr/bin/zsh
     - /usr/bin/fish
     - /bin/mksh
+    - /usr/bin/tcsh
+    - /usr/bin/ksh93
+    - /usr/bin/rc
+    - /usr/bin/elvish

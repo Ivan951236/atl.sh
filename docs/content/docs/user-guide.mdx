@@ -82,22 +82,11 @@ who
 # Send a message to everyone logged in
 wall "anyone want to play nethack?"
 
-# Send a message directly to one user (they must have mesg y)
-write username
-
 # Real-time two-way chat with another user
 talk username
 ```
 
-`write` opens a one-way message session — type your message, press Ctrl+D to send. `talk` opens a split-screen two-way chat.
-
-Your account is set up with `mesg y` by default so other users can reach you. To opt out:
-
-```bash
-mesg n   # disable incoming messages
-mesg y   # re-enable
-mesg     # check current status
-```
+`wall` broadcasts a message to every logged-in terminal. `talk` opens a split-screen two-way chat session with another user.
 
 ## Games
 

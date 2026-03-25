@@ -20,7 +20,7 @@
 ### Shell & Development
 
 - **SSH access** on ports 22 and 2222 (key-only, passwords disabled)
-- **Shells**: bash, zsh, fish, mksh
+- **Shells**: bash, zsh, fish, mksh, tcsh, ksh93, rc, elvish
 - **Editors**: vim, neovim, nano, emacs, micro, joe
 - **Languages**: Python, Node.js, Go, Rust, Ruby, C/C++, Haskell, Elixir, Java, and 20+ more
 - **Tools**: tmux, git, ripgrep, fzf, jq, bat, eza, lazygit, and many more
@@ -38,7 +38,7 @@
 
 - **Webring**: Self-managing ring of member sites — join with `touch ~/.ring`
 - **Games**: NetHack with shared high scores, botany virtual plant, angband, crawl, and arcade games
-- **Messaging**: `write`, `talk`, `wall` for real-time user-to-user communication
+- **Messaging**: `talk`, `wall` for real-time user-to-user communication
 - **IRC**: `#support` on `irc.atl.chat` (port 6697, SSL)
 
 ### Resource Limits (per user)
