@@ -89,3 +89,4 @@
     - /usr/bin/rc
     - /usr/bin/elvish
     - /usr/bin/nu
+    - /usr/bin/dash

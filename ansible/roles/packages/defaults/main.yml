@@ -11,6 +11,7 @@ user_shells:
   - rc
   - elvish
   - nushell
+  - dash
 
 # ──────────────────────────────────────────────
 # Build tools & compilers
