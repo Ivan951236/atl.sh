@@ -210,6 +210,23 @@ cli_tools:
   - nethogs
   - traceroute
   - telnet
+  - gping
+  - trippy
+  - xh
+  - ldnsutils
+  - prettyping
+  - fping
+  - sipcalc
+  - autossh
+  - rclone
+  - lftp
+  - speedtest-cli
+  - geoip-bin
+  - geoip-database
+  - bmon
+  - ngrep
+  - termshark
+  - arp-scan
 
 # ──────────────────────────────────────────────
 # Fun / community
