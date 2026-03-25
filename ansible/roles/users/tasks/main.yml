@@ -93,3 +93,19 @@
     mode: "0755"
     owner: root
     group: root
+
+- name: Deploy social commands
+  ansible.builtin.copy:
+    src: "social/{{ item }}"
+    dest: "/usr/local/bin/{{ item | replace('.sh', '') }}"
+    mode: "0755"
+  loop:
+    - plan.sh
+    - lastplan.sh
+    - online.sh
+
+- name: Deploy community command (templated)
+  ansible.builtin.template:
+    src: social/community.sh.j2
+    dest: /usr/local/bin/community
+    mode: "0755"
