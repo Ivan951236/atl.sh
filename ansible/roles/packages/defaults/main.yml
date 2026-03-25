@@ -95,6 +95,7 @@ editors:
   - mg
   - micro
   - joe
+  - hx
 
 # ──────────────────────────────────────────────
 # Terminal multiplexers

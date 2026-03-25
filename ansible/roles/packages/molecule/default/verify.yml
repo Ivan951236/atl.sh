@@ -45,6 +45,7 @@
           - "'neovim' in ansible_facts.packages"
           - "'nano' in ansible_facts.packages"
           - "'emacs-nox' in ansible_facts.packages"
+          - "'helix' in ansible_facts.packages"
         fail_msg: "One or more editors are missing"
 
     - name: Assert terminal multiplexers are installed
