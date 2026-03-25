@@ -24,6 +24,7 @@
 - **Editors**: vim, neovim, nano, emacs, micro, joe
 - **Languages**: Python, Node.js, Go, Rust, Ruby, C/C++, Haskell, Elixir, Java, and 20+ more
 - **Tools**: tmux, git, ripgrep, fzf, jq, bat, eza, lazygit, and many more
+- **Networking**: gping, trippy, xh, drill, prettyping, fping, sipcalc, termshark, speedtest-cli, rclone, and more
 - **Package managers**: pip/pipx/uv, npm/pnpm, cargo, gem, go install — install to `~/.local/`
 
 ### Hosting & Protocols
@@ -36,9 +37,11 @@
 
 ### Community
 
+- **Social commands**: `menu` (interactive guide), `online`, `community`, `plan`, `lastplan`
 - **Webring**: Self-managing ring of member sites — join with `touch ~/.ring`
 - **Games**: NetHack with shared high scores, botany virtual plant, angband, crawl, and arcade games
 - **Messaging**: `talk`, `wall` for real-time user-to-user communication
+- **Dictionary**: `dict` — offline lookups across 7 databases (English, WordNet, Jargon File, FOLDOC, acronyms, and more)
 - **IRC**: `#support` on `irc.atl.chat` (port 6697, SSL)
 
 ### Resource Limits (per user)
@@ -63,6 +66,7 @@
 | Gemini | molly-brown |
 | Gopher | Gophernicus |
 | Finger | efingerd (systemd socket-activated) |
+| Dictionary | dictd (RFC 2229) |
 | FTP | vsftpd |
 | Backups | Borgmatic (BorgBackup) |
 | Monitoring | Prometheus Node Exporter, smartmontools, lm-sensors |
@@ -157,9 +161,9 @@ Roles run in the order defined in [`ansible/site.yml`](ansible/site.yml):
 | `common` | Apt cache, base packages, NTP, journald, shared logrotate |
 | `packages` | Shells, languages, editors, multiplexers, CLI tools, games, and related packages |
 | `security` | Kernel and auth hardening, SSH, firewall, fail2ban, auditd, AIDE, unattended upgrades |
-| `users` | Skel files, MOTD, PAM limits |
+| `users` | Skel files, MOTD, PAM limits, social commands (`menu`, `plan`, `online`, `community`) |
 | `environment` | Cgroup limits, disk quotas, private `/tmp`, XDG dirs, PATH |
-| `services` | Nginx, Gemini, Gopher, finger, games, webring |
+| `services` | Nginx, Gemini, Gopher, finger, dictd, games, webring |
 | `ftp` | vsftpd (FTP/S) |
 | `monitoring` | Prometheus node exporter, smartmontools, lm-sensors |
 | `backup` | Borgmatic / BorgBackup |
