@@ -1,4 +1,17 @@
 ---
+- name: Add Nushell apt signing key
+  ansible.builtin.get_url:
+    url: https://apt.fury.io/nushell/gpg.key
+    dest: /etc/apt/keyrings/fury-nushell.gpg
+    mode: "0644"
+
+- name: Add Nushell apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/fury-nushell.gpg] https://apt.fury.io/nushell/ /"
+    filename: fury-nushell
+    state: present
+    update_cache: true
+
 - name: Install user shells
   ansible.builtin.apt:
     name: "{{ user_shells }}"
@@ -75,3 +88,4 @@
     - /usr/bin/ksh93
     - /usr/bin/rc
     - /usr/bin/elvish
+    - /usr/bin/nu

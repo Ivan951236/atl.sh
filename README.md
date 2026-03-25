@@ -20,7 +20,7 @@
 ### Shell & Development
 
 - **SSH access** on ports 22 and 2222 (key-only, passwords disabled)
-- **Shells**: bash, zsh, fish, mksh, tcsh, ksh93, rc, elvish
+- **Shells**: bash, zsh, fish, mksh, tcsh, ksh93, rc, elvish, nushell
 - **Editors**: vim, neovim, nano, emacs, micro, joe
 - **Languages**: Python, Node.js, Go, Rust, Ruby, C/C++, Haskell, Elixir, Java, and 20+ more
 - **Tools**: tmux, git, ripgrep, fzf, jq, bat, eza, lazygit, and many more
